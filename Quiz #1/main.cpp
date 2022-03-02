@@ -2,6 +2,14 @@
 #include "noticiaPaper.h"
 #include "noticiaRadio.h"
 
+/*
+ * Analisis de Algoritmos
+ * Herencia de clases, polimorfismo y punteros
+ *
+ * > Quiz #1 - Deyner Navarro Badilla
+ *
+*/
+
 int main() {
 
     // Vector de noticia
