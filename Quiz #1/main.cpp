@@ -19,13 +19,16 @@ int main() {
     string nombreNoticia = "Caso Fenix";
     string fechaNoticia = "28 de febrero";
     string reporteroNoticia = "Eillyn Jimenez";
-    string arch_Foto = "foto.png";
-    vector<string> archMedia = {"foto.png", "video.mp3", "animado.gif", "audio.mp3"};
+    string arch_Foto = "fotoArch.png";
+    vector<string> archVideo = {"video1.mov", "video2.mov", "video3.mov", "video4.mov", "video5.mov"};
+    vector<string> archAudio = {"audio1.mp3", "audio2.mp3", "audio3.mp3", "audio4.mp3", "audio5.mp3"};
+    vector<string> archFotos = {"foto1.png", "foto2.png", "foto3.png", "foto4.png", "foto5.png"};
     string url_Audio = "radioAudio.mp3";
+
 
     // Instancias de las clases noticiaPaper, noticiaDigital, noticiaRadio
     noticiaPaper *Paper = new noticiaPaper(nombreNoticia, fechaNoticia, reporteroNoticia, arch_Foto);
-    noticiaDigital *Digital = new noticiaDigital(nombreNoticia, fechaNoticia, reporteroNoticia, archMedia);
+    noticiaDigital *Digital = new noticiaDigital(nombreNoticia, fechaNoticia, reporteroNoticia, archVideo, archAudio, archFotos);
     noticiaRadio *Radio = new noticiaRadio(nombreNoticia, fechaNoticia, reporteroNoticia, url_Audio);
     
     // Insercion de las instancias al vector noticia
