@@ -8,9 +8,6 @@ void printe(vector<int> &array) {
     cout << endl;
 }
 
-// vector<int> leftSide(array.begin(), (array.begin() + pivotePosition));
-// vector<int> rightSide((array.begin() + pivotePosition), array.end());
-
 void QuickSort(vector<int> &array) {
     int sizeArray = array.size();
 
@@ -57,10 +54,12 @@ void QuickSort(vector<int> &array) {
     }
 }
 
+
 int main() {
     vector<int> V = {1,3,6,4,2,5,7,8};
 
-    QuickSort(V);
+    //QuickSort(V);
+
 
 
     return 0;
