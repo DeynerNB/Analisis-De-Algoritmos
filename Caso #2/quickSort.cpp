@@ -1,66 +1,66 @@
 #include <iostream>
 #include <vector>
+
 using namespace std;
 
-void printe(vector<int> &array) {
-    for(auto i : array)
-        cout << i << ", ";
-    cout << endl;
-}
 
-void QuickSort(vector<int> &array) {
-    int sizeArray = array.size();
+vector<int> QuickSort_StaticPivot(vector<int> array) {
+    if (array.size() > 1) {
 
-    if (sizeArray > 1) {
-        int pivotePosition = sizeArray / 2;
+        int pivot = array[array.size() - 1];
 
-        int left = 0;
-        int right = sizeArray - 2;
-        int pivote = array[pivotePosition];
+        vector<int> leftSide;
+        vector<int> rightSide;
 
-        int aux = array[sizeArray - 1];
-        array[sizeArray - 1] = pivote;
-        array[pivotePosition] = aux;
-
-        while(true) {
-
-            while (array[left] < pivote)
-                left++;
-
-            while (array[right] > pivote)
-                right--;
-
-            if (left < right) {
-                aux = array[left];
-                array[left] = array[right];
-                array[right] = aux;
-            }
+        for (auto elem = array.begin(); elem != (array.end() - 1); ++elem) {
+            if (*elem > pivot)
+                rightSide.push_back(*elem);
             else
-                break;
+                leftSide.push_back(*elem);
         }
 
-        aux = array[left];
-        array[left] = pivote;
-        array[sizeArray - 1] = aux;
+        leftSide = QuickSort_StaticPivot(leftSide);
+        rightSide = QuickSort_StaticPivot(rightSide);
 
-        vector<int> leftSide(array.begin(), (array.begin() + left));
-        vector<int> rightSide((array.begin() + left + 1), array.end());
+        leftSide.push_back(pivot);
 
-        printe(leftSide);
-        printe(rightSide);
-
-        QuickSort(leftSide);
-        QuickSort(rightSide);
+        leftSide.insert(leftSide.end(), rightSide.begin(), rightSide.end());
+        array = leftSide;
     }
+    return array;
+}
+vector<int> QuickSort_RandomPivot(vector<int> array) {
+    if (array.size() > 1) {
+
+        int pivotPosition = rand() % array.size();
+        int pivot = array[pivotPosition];
+
+        vector<int> leftSide;
+        vector<int> rightSide;
+
+        for (int i = 0; i < array.size(); i++) {
+            if (i != pivotPosition) {
+                if (array[i] > pivot)
+                    rightSide.push_back(array[i]);
+                else
+                    leftSide.push_back(array[i]);
+            }
+        }
+
+        leftSide = QuickSort_RandomPivot(leftSide);
+        rightSide = QuickSort_RandomPivot(rightSide);
+
+        leftSide.push_back(pivot);
+
+        leftSide.insert(leftSide.end(), rightSide.begin(), rightSide.end());
+        array = leftSide;
+    }
+    return array;
 }
 
-
 int main() {
-    vector<int> V = {1,3,6,4,2,5,7,8};
 
-    //QuickSort(V);
-
-
+    V = QuickSort_StaticPivot(V);
 
     return 0;
 }
