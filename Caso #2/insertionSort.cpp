@@ -10,10 +10,10 @@ void insertionSort(vector<int> &array) {
 
 	if (arraySize > 1) {
 
-		unsigned int pointer1 = 0;
-		unsigned int pointer2 = 1;
-		unsigned int aux1 = pointer1;
-		unsigned int aux2 = pointer2;
+		int pointer1 = 0;
+		int pointer2 = 1;
+		int aux1 = pointer1;
+		int aux2 = pointer2;
 
 		while(pointer2 < arraySize) {
 			if (aux1 >= 0 && array[aux1] > array[aux2]) {
