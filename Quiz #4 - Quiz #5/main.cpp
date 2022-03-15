@@ -21,6 +21,10 @@ void printe(int array[], int n) {
     }
 }
 
+
+// f(n) = 2f(n/2) + 41
+// O(nlog2(n))
+
 int costo(int N, int M, int x[], int y[]) {
 
     if (N == 1 && M == 1)
