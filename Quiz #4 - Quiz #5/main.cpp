@@ -63,6 +63,7 @@ int main() {
     int x_Size = (sizeof(x)/sizeof(x[0])) + 1;
     int y_Size = (sizeof(y)/sizeof(y[0])) + 1;
 
+    cout << "Coste minimo: ";
     cout << costo(x_Size, y_Size, x, y) << endl;
 
     return 0;
