@@ -15,15 +15,9 @@ int elementoMayor_Indice(int array[], int sizeArray) {
     return indice;
 }
 
-void printe(int array[], int n) {
-    for (int i = 0; i < n; i++) {
-        cout << array[i] << endl;
-    }
-}
-
-
 // f(n) = 2f(n/2) + 41
 // O(nlog2(n))
+// (x1 + x2 + ... + xn) + (N * (y1 + y2 + ... + ym))
 
 int costo(int N, int M, int x[], int y[]) {
 
@@ -53,10 +47,23 @@ int costo(int N, int M, int x[], int y[]) {
 
 int main() {
 
-    int x[] = {2, 7, 8};
-    int y[] = {4, 3, 9};
+    // int x[] = {2, 7, 8};
+    // int y[] = {4, 3, 9};
 
-    cout << costo(4, 4, x, y) << endl;
+    // int x[] = {2, 5, 5, 9, 12};
+    // int y[] = {4, 3, 9};
+
+    // int x[] = {2, 7, 8, 20};
+    // int y[] = {4, 1, 3, 48, 10};
+
+    int x[] = {2};
+    int y[] = {4, 3, 9, 10};
+
+
+    int x_Size = (sizeof(x)/sizeof(x[0])) + 1;
+    int y_Size = (sizeof(y)/sizeof(y[0])) + 1;
+
+    cout << costo(x_Size, y_Size, x, y) << endl;
 
     return 0;
 }
