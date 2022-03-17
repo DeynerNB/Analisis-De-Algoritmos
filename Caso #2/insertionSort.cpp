@@ -1,13 +1,9 @@
-
 #include <iostream>
 #include <vector>
+#include <time.h>
 
 using namespace std;
 
-int ANALISIS_intercambios;
-int ANALISIS_operaciones;
-int ANALISIS_asignaciones;
-int ANALISIS_comparaciones;
 
 void generarArray(vector<int> &array, int n) {
 	for (int i = 0; i < n; i++) {
@@ -33,149 +29,113 @@ void mostrarArray(vector<int> array) {
 	cout << "]";
 }
 
-void reiniciarContadores() {
-	ANALISIS_intercambios = 0;
-	ANALISIS_operaciones = 0;
-	ANALISIS_asignaciones = 0;
-	ANALISIS_comparaciones = 0;
-}
+
 
 void insertionSort(vector<int> &array) {
 
 	int arraySize = array.size();
-	ANALISIS_asignaciones++;
 
-	ANALISIS_comparaciones++;
 	if (arraySize > 1) {
 
 		int pointer1 = 0;
 		int pointer2 = 1;
 		int aux1 = pointer1;
 		int aux2 = pointer2;
-		ANALISIS_asignaciones += 4;
 
 		while(pointer2 < arraySize) {
-			ANALISIS_comparaciones++;
 
-			ANALISIS_comparaciones += 3;
-			ANALISIS_operaciones += 2;
 			if (aux1 >= 0 && array[aux1] > array[aux2]) {
-
 				int saveKey = array[aux1];
 				array[aux1] = array[aux2];
 				array[aux2] = saveKey;
-				ANALISIS_asignaciones += 3;
-				ANALISIS_operaciones += 4;
-				ANALISIS_intercambios += 2;
 				
 				aux1--;
 				aux2--;
-				ANALISIS_operaciones += 2;
-				ANALISIS_asignaciones += 2;
 				continue;
 			}
 			pointer1++;
 			pointer2++;
 			aux1 = pointer1;
 			aux2 = pointer2;
-			ANALISIS_asignaciones += 4;
-			ANALISIS_operaciones += 2;
 		}
 	}
 }
 
 int main() {
 
+	unsigned t0;
+	unsigned t1;
+	double time;
+
 	vector<int> array1;
 	vector<int> array2;
-	vector<int> array3;
-	vector<int> array4;
-	vector<int> array5;
+	vector<double> tiempos;
+	vector<int> tamanos;
 
-	vector<int> arrayMC;
-	vector<int> arrayPC;
+	// // Caso lineal con Omega
+	// for (int i = 5000000; i <= 100000000; i += 5000000) {
+		
+	// 	generarArrayMC(array1, i);
 
-	generarArray(array1, 10);
-	generarArray(array2, 10);
-	generarArray(array3, 10);
-	generarArray(array4, 10);
-	generarArray(array5, 10);
+	// 	t0 = clock();
+	// 	insertionSort(array1);
+	// 	t1 = clock();
+	// 	time = (double(t1 - t0)/CLOCKS_PER_SEC);
 
-	generarArrayMC(arrayMC, 10);
-	generarArrayPC(arrayPC, 10);
+	// 	tiempos.push_back(time);
+	// 	tamanos.push_back(i);
+	
+	// 	array1.clear();
+	// }
+
+	// cout << "\t >>> CASO LINEAL:\n";
+	// cout << "\n\n---------------------------------";
+	// cout << "\n Array Tamano: " << tamanos[0];
+	// cout << "\n Tiempo: " << tiempos[0];
+	// cout << "\n---------------------------------";
+
+	// for (int i = 1; i < tiempos.size(); i++) {
+	// 	cout << "\n\n---------------------------------";
+	// 	cout << "\n Array Tamano: " << tamanos[i];
+	// 	cout << "\n Tiempo: " << tiempos[i];
+	// 	cout << "\n Diferencia: " << (tiempos[i] - tiempos[i - 1]);
+	// 	cout << "\n---------------------------------";
+	// }
 
 
-	reiniciarContadores();
-	insertionSort(array1);
-	cout << "---------------------------------";
-	cout << "\nArray Tamano: " << array1.size();
-	cout << "\nIntercambio: " << ANALISIS_intercambios;
-	cout << "\nOperaciones: " << ANALISIS_operaciones;
-	cout << "\nAsignaciones: " << ANALISIS_asignaciones;
-	cout << "\nComparaciones: " << ANALISIS_comparaciones;
-	cout << "\n---------------------------------\n\n";
 
-	reiniciarContadores();
-	insertionSort(array2);
-	cout << "---------------------------------";
-	cout << "\nArray Tamano: " << array2.size();
-	cout << "\nIntercambio: " << ANALISIS_intercambios;
-	cout << "\nOperaciones: " << ANALISIS_operaciones;
-	cout << "\nAsignaciones: " << ANALISIS_asignaciones;
-	cout << "\nComparaciones: " << ANALISIS_comparaciones;
-	cout << "\n---------------------------------\n\n";
+	// tiempos.clear();
+	// tamanos.clear();
 
-	reiniciarContadores();
-	insertionSort(array3);
-	cout << "---------------------------------";
-	cout << "\nArray Tamano: " << array3.size();
-	cout << "\nIntercambio: " << ANALISIS_intercambios;
-	cout << "\nOperaciones: " << ANALISIS_operaciones;
-	cout << "\nAsignaciones: " << ANALISIS_asignaciones;
-	cout << "\nComparaciones: " << ANALISIS_comparaciones;
-	cout << "\n---------------------------------\n\n";
+	// Caso logaritmico con O-grande
+	for (int i = 5000; i <= 75000; i += 5000) {
+		
+		generarArrayPC(array2, i);
 
-	reiniciarContadores();
-	insertionSort(array4);
-	cout << "---------------------------------";
-	cout << "\nArray Tamano: " << array4.size();
-	cout << "\nIntercambio: " << ANALISIS_intercambios;
-	cout << "\nOperaciones: " << ANALISIS_operaciones;
-	cout << "\nAsignaciones: " << ANALISIS_asignaciones;
-	cout << "\nComparaciones: " << ANALISIS_comparaciones;
-	cout << "\n---------------------------------\n\n";
+		t0 = clock();
+		insertionSort(array2);
+		t1 = clock();
+		time = (double(t1 - t0)/CLOCKS_PER_SEC);
 
-	reiniciarContadores();
-	insertionSort(array5);
-	cout << "---------------------------------";
-	cout << "\nArray Tamano: " << array5.size();
-	cout << "\nIntercambio: " << ANALISIS_intercambios;
-	cout << "\nOperaciones: " << ANALISIS_operaciones;
-	cout << "\nAsignaciones: " << ANALISIS_asignaciones;
-	cout << "\nComparaciones: " << ANALISIS_comparaciones;
-	cout << "\n---------------------------------\n\n";
+		tiempos.push_back(time);
+		tamanos.push_back(i);
+	
+		array2.clear();
+	}
 
-	reiniciarContadores();
-	cout << "---------------------------------\n";
-	cout << "ArrayMC: ";	mostrarArray(arrayMC);
-	insertionSort(arrayMC);
-	cout << "\nArray Tamano: " << arrayMC.size();
-	cout << "\nIntercambio: " << ANALISIS_intercambios;
-	cout << "\nOperaciones: " << ANALISIS_operaciones;
-	cout << "\nAsignaciones: " << ANALISIS_asignaciones;
-	cout << "\nComparaciones: " << ANALISIS_comparaciones;
-	cout << "\n---------------------------------\n\n";
+	cout << "\t >>> CASO LOGARITMICO:\n";
+	cout << "\n\n---------------------------------";
+	cout << "\n Array Tamano: " << tamanos[0];
+	cout << "\n Tiempo: " << tiempos[0];
+	cout << "\n---------------------------------";
 
-	reiniciarContadores();
-	cout << "---------------------------------\n";
-	cout << "ArrayPC: ";	mostrarArray(arrayPC);
-	insertionSort(arrayPC);
-	cout << "\nArray Tamano: " << arrayPC.size();
-	cout << "\nIntercambio: " << ANALISIS_intercambios;
-	cout << "\nOperaciones: " << ANALISIS_operaciones;
-	cout << "\nAsignaciones: " << ANALISIS_asignaciones;
-	cout << "\nComparaciones: " << ANALISIS_comparaciones;
-	cout << "\n---------------------------------\n\n";
+	for (int i = 1; i < tiempos.size(); i++) {
+		cout << "\n\n---------------------------------";
+		cout << "\n Array Tamano: " << tamanos[i];
+		cout << "\n Tiempo: " << tiempos[i];
+		cout << "\n Diferencia: " << (tiempos[i] - tiempos[i - 1]);
+		cout << "\n---------------------------------";
+	}
 
 	return 0;
 }

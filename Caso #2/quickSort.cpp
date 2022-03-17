@@ -1,158 +1,99 @@
 #include <iostream>
 #include <vector>
+#include <time.h>
 
 using namespace std;
 
 // 0 Estatico - 1 Aleatorio
 #define PIVOT_TYPE 0
 
-int ANALISIS_intercambios;
-int ANALISIS_operaciones;
-int ANALISIS_asignaciones;
-int ANALISIS_comparaciones;
-int ANALISIS_llamadas;
-int ANALISIS_retornos;
+void generarVectorMC(vector<int>& a, int n) {
+    for (int i = 0; i < n; i++)
+        a.push_back(i);
+}
 
-bool firstPivot = true;
+void intercambiar(vector<int>& a, int index1, int index2) {
+    int aux = a[index1];
+    a[index1] = a[index2];
+    a[index2] = aux;
+}
+int particionar(vector<int>& a, int imin, int imax) {
 
-int getPivot(vector<int> array, int n) {
-    if (PIVOT_TYPE)
-        return array[rand() % n];
+    // Mover pivote al final
+    if (imin)
+        intercambiar(a, imin + (imax - imin - 1), imax);
     else
-        return array[n - 1];
-}
-void generarArray(vector<int> &array, int n) {
-    for (int i = 0; i < n; i++) {
-        array.push_back(rand() % 200 + 1);
-    }
-}
-void reiniciarContadores() {
-    ANALISIS_intercambios = 0;
-    ANALISIS_operaciones = 0;
-    ANALISIS_asignaciones = 0;
-    ANALISIS_comparaciones = 0;
-    ANALISIS_llamadas = 0;
-    ANALISIS_retornos = 0;
-    firstPivot = true;
-}
-void mostrarArray(vector<int> array) {
-    cout << "[";
-    for (int e : array) {
-        cout << e << ", ";
-    }
-    cout << "]";
-}
+        intercambiar(a, (imax + 1)/2, imax);
 
+    int j = imin;
+    int k = imin;
+    int ind_Pivote = imax;
 
-vector<int> QuickSort(vector<int>& array) {
-
-    int arraySize = array.size();
-    ANALISIS_asignaciones++;
-    ANALISIS_llamadas++;
-
-    ANALISIS_comparaciones++;
-    if (arraySize > 1) {
-
-        int pivot = getPivot(array, arraySize);
-        ANALISIS_asignaciones++;
-        ANALISIS_llamadas+=3;
-
-        if (firstPivot) {
-            cout << "\nPivote Inicial: " << pivot;
-            firstPivot = false;
+    while (j < ind_Pivote) {
+        
+        if (a[j] < a[ind_Pivote]) {
+            intercambiar(a, j, k);
+            k++;
         }
-
-        vector<int> leftSide;
-        vector<int> rightSide;
-
-        ANALISIS_asignaciones++;
-        for (auto elem = array.begin(); elem != array.end(); ++elem) {
-            ANALISIS_comparaciones++;
-            ANALISIS_asignaciones++;
-            ANALISIS_operaciones += 1;
-
-            ANALISIS_comparaciones++;
-            ANALISIS_llamadas+=2;
-            if (*elem > pivot)
-                rightSide.push_back(*elem);
-            else if(*elem < pivot)
-                leftSide.push_back(*elem);
-        }
-
-        ANALISIS_asignaciones += 2;
-        ANALISIS_llamadas += 2;
-        leftSide = QuickSort(leftSide);
-        rightSide = QuickSort(rightSide);
-
-        ANALISIS_llamadas += 2;
-        leftSide.push_back(pivot);
-
-        ANALISIS_llamadas += 7;
-        leftSide.insert(leftSide.end(), rightSide.begin(), rightSide.end());
-
-        ANALISIS_asignaciones++;
-        array = leftSide;
+        j++;
     }
-
-    ANALISIS_retornos++;
-    return array;
+    
+    intercambiar(a, k, ind_Pivote);
+    return k;
 }
+
+void quickSort(vector<int>& a, int imin, int imax) {
+
+    if (imax <= imin)
+        return;
+
+    int k = particionar(a, imin, imax);
+
+    quickSort(a, imin, k-1);
+    quickSort(a, k+1, imax);
+}
+
 
 int main() {
 
-    vector<int> arrayS_1 = {77, 75, 23, 43, 55, 12, 64, 44};
-    vector<int> arrayS_2 = {10, 20, 30, 40, 50, 60, 70, 80};
-    vector<int> arrayS_3 = {80, 70, 60, 50, 40, 30, 20, 10};
 
-    if (PIVOT_TYPE)
-        cout << " >> Pivote Aleatorio\n";
-    else
-        cout << " >> Pivote Fijo\n";
+    vector<int> vector1;
+    vector<int> tamanos;
+    vector<double> tiempos;
 
-    reiniciarContadores();
-    cout << "---------------------------------\n";
-    cout << "Array Original: "; mostrarArray(arrayS_1);
-    arrayS_1 = QuickSort(arrayS_1);
-    cout << "\nArray Tamano: " << arrayS_1.size();
-    cout << "\nIntercambio: " << ANALISIS_intercambios;
-    cout << "\nOperaciones: " << ANALISIS_operaciones;
-    cout << "\nAsignaciones: " << ANALISIS_asignaciones;
-    cout << "\nComparaciones: " << ANALISIS_comparaciones;
-    cout << "\nLlamadas: " << ANALISIS_llamadas;
-    cout << "\nRetornos: " << ANALISIS_retornos;
-    cout << "\nArray Ordenado: "; mostrarArray(arrayS_1);
-    cout << "\n---------------------------------\n\n";
+    unsigned t0;
+    unsigned t1;
+    double time;
+    
+    // Caso Logaritmico : Mejor Caso
+    for (int i = 5000; i < 50000; i += 5000) {
+        generarVectorMC(vector1, i);
 
-    reiniciarContadores();
-    cout << "---------------------------------\n";
-    cout << "Array Original: "; mostrarArray(arrayS_2);
-    arrayS_2 = QuickSort(arrayS_2);
-    cout << "\nArray Tamano: " << arrayS_2.size();
-    cout << "\nIntercambio: " << ANALISIS_intercambios;
-    cout << "\nOperaciones: " << ANALISIS_operaciones;
-    cout << "\nAsignaciones: " << ANALISIS_asignaciones;
-    cout << "\nComparaciones: " << ANALISIS_comparaciones;
-    cout << "\nLlamadas: " << ANALISIS_llamadas;
-    cout << "\nRetornos: " << ANALISIS_retornos;
-    cout << "\nArray Ordenado: "; mostrarArray(arrayS_2);
-    cout << "\n---------------------------------\n\n";
+        t0 = clock();
+        quickSort(vector1, 0, vector1.size() - 1);
+        t1 = clock();
 
-    reiniciarContadores();
-    cout << "---------------------------------\n";
-    cout << "Array Original: "; mostrarArray(arrayS_3);
-    arrayS_3 = QuickSort(arrayS_3);
-    cout << "\nArray Tamano: " << arrayS_3.size();
-    cout << "\nIntercambio: " << ANALISIS_intercambios;
-    cout << "\nOperaciones: " << ANALISIS_operaciones;
-    cout << "\nAsignaciones: " << ANALISIS_asignaciones;
-    cout << "\nComparaciones: " << ANALISIS_comparaciones;
-    cout << "\nLlamadas: " << ANALISIS_llamadas;
-    cout << "\nRetornos: " << ANALISIS_retornos;
-    cout << "\nArray Ordenado: "; mostrarArray(arrayS_3);
-    cout << "\n---------------------------------\n\n";
+        time = double(t1 - t0) / CLOCKS_PER_SEC;
 
+        tiempos.push_back(time);
+        tamanos.push_back(i);
 
+        vector1.clear();
+    }
 
+    cout << "\t >>> CASO LOGARITMICO:\n";
+	cout << "\n\n---------------------------------";
+	cout << "\n Array Tamano: " << tamanos[0];
+	cout << "\n Tiempo: " << tiempos[0];
+	cout << "\n---------------------------------";
+
+	for (int i = 1; i < tiempos.size(); i++) {
+		cout << "\n\n---------------------------------";
+		cout << "\n Array Tamano: " << tamanos[i];
+		cout << "\n Tiempo: " << tiempos[i];
+		cout << "\n Diferencia: " << (tiempos[i] - tiempos[i - 1]);
+		cout << "\n---------------------------------";
+	}
 
     return 0;
 }
