@@ -70,45 +70,52 @@ int main() {
 	vector<int> array1;
 	vector<int> array2;
 	vector<double> tiempos;
+	vector<double> proporciones;
 	vector<int> tamanos;
 
-	// // Caso lineal con Omega
-	// for (int i = 5000000; i <= 100000000; i += 5000000) {
+	// Caso lineal con Omega
+	for (int i = 5000000; i <= 50000000; i += 5000000) {
 		
-	// 	generarArrayMC(array1, i);
+		generarArrayMC(array1, i);
 
-	// 	t0 = clock();
-	// 	insertionSort(array1);
-	// 	t1 = clock();
-	// 	time = (double(t1 - t0)/CLOCKS_PER_SEC);
+		t0 = clock();
+		insertionSort(array1);
+		t1 = clock();
+		time = (double(t1 - t0)/CLOCKS_PER_SEC);
 
-	// 	tiempos.push_back(time);
-	// 	tamanos.push_back(i);
+		tiempos.push_back(time);
+		tamanos.push_back(i);
 	
-	// 	array1.clear();
-	// }
+		array1.clear();
+	}
 
-	// cout << "\t >>> CASO LINEAL:\n";
-	// cout << "\n\n---------------------------------";
-	// cout << "\n Array Tamano: " << tamanos[0];
-	// cout << "\n Tiempo: " << tiempos[0];
-	// cout << "\n---------------------------------";
+	cout << "\t >>> CASO LINEAL:\n";
+	cout << "\n\n---------------------------------";
+	cout << "\n Array Tamano: " << tamanos[0];
+	cout << "\n Tiempo: " << tiempos[0];
+	cout << "\n---------------------------------";
 
-	// for (int i = 1; i < tiempos.size(); i++) {
-	// 	cout << "\n\n---------------------------------";
-	// 	cout << "\n Array Tamano: " << tamanos[i];
-	// 	cout << "\n Tiempo: " << tiempos[i];
-	// 	cout << "\n Diferencia: " << (tiempos[i] - tiempos[i - 1]);
-	// 	cout << "\n---------------------------------";
-	// }
+	for (int i = 1; i < tiempos.size(); i++) {
+		cout << "\n\n---------------------------------";
+		cout << "\n Array Tamano: " << tamanos[i];
+		cout << "\n Tiempo: " << tiempos[i];
+		cout << "\n Diferencia: " << (tiempos[i] - tiempos[i - 1]);
+		cout << "\n Proporcion: " << (tiempos[i] / tiempos[i - 1]);
+		cout << "\n---------------------------------";
 
+		proporciones.push_back(tiempos[i] / tiempos[i - 1]);
+	}
+	double media;
+	for (int e : proporciones)
+		media += e;
+	cout << "\nMedia Caso Lineal: " << double(media/double(proporciones.size()));
 
-
-	// tiempos.clear();
-	// tamanos.clear();
+	tiempos.clear();
+	tamanos.clear();
+	proporciones.clear();
 
 	// Caso logaritmico con O-grande
-	for (int i = 5000; i <= 75000; i += 5000) {
+	for (int i = 5000; i <= 50000; i += 5000) {
 		
 		generarArrayPC(array2, i);
 
@@ -123,7 +130,7 @@ int main() {
 		array2.clear();
 	}
 
-	cout << "\t >>> CASO LOGARITMICO:\n";
+	cout << "\n\t >>> CASO CUADRATICO:\n";
 	cout << "\n\n---------------------------------";
 	cout << "\n Array Tamano: " << tamanos[0];
 	cout << "\n Tiempo: " << tiempos[0];
@@ -134,8 +141,15 @@ int main() {
 		cout << "\n Array Tamano: " << tamanos[i];
 		cout << "\n Tiempo: " << tiempos[i];
 		cout << "\n Diferencia: " << (tiempos[i] - tiempos[i - 1]);
+		cout << "\n Proporcion: " << (tiempos[i] / tiempos[i - 1]);
 		cout << "\n---------------------------------";
+
+		proporciones.push_back(tiempos[i] / tiempos[i - 1]);
 	}
+	media = 0.0;
+	for (int e : proporciones)
+		media += e;
+	cout << "\nMedia Caso Cuadratico: " << double(media/double(proporciones.size()));
 
 	return 0;
 }
