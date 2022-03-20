@@ -138,7 +138,11 @@ int main() {
 
 	readFile(&text);
 
-	// Cambiar texto a minusculas
+	// Change pattern into lower case
+	for (int i = 0; i < pattern.length(); i++)
+		pattern[i] = tolower(pattern[i]);
+
+	// Change file text into lower case
 	cout << "\nFile lower case conversion initializing...\n";
 	t0 = clock();
 	for (int i = 0; i < text.length(); i++)
