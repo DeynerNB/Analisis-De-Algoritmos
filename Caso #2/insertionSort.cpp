@@ -70,7 +70,6 @@ int main() {
 	vector<int> array1;
 	vector<int> array2;
 	vector<double> tiempos;
-	vector<double> proporciones;
 	vector<int> tamanos;
 
 	// Caso lineal con Omega
@@ -89,8 +88,8 @@ int main() {
 		array1.clear();
 	}
 
-	cout << "\t >>> CASO LINEAL:\n";
-	cout << "\n\n---------------------------------";
+	cout << "\n\t >>> CASO LINEAL:";
+	cout << "\n---------------------------------";
 	cout << "\n Array Tamano: " << tamanos[0];
 	cout << "\n Tiempo: " << tiempos[0];
 	cout << "\n---------------------------------";
@@ -100,21 +99,19 @@ int main() {
 		cout << "\n Array Tamano: " << tamanos[i];
 		cout << "\n Tiempo: " << tiempos[i];
 		cout << "\n Diferencia: " << (tiempos[i] - tiempos[i - 1]);
-		cout << "\n Proporcion: " << (tiempos[i] / tiempos[i - 1]);
+		cout << "\n Proporcion: " << (tiempos[i - 1] / tiempos[i]);
 		cout << "\n---------------------------------";
-
-		proporciones.push_back(tiempos[i] / tiempos[i - 1]);
 	}
-	double media;
-	for (int e : proporciones)
-		media += e;
-	cout << "\nMedia Caso Lineal: " << double(media/double(proporciones.size()));
+	cout << "\n >> Exp: La diferencia de tiempos crece de manera lineal, la diferencia de tiempos se mantiene muy parecida\nDif. Tiempos: ";
+    for (int i = 1; i < tiempos.size(); i++) {
+        cout << tiempos[i] - tiempos[i - 1] << ", ";
+    }
+    cout << endl;
 
 	tiempos.clear();
 	tamanos.clear();
-	proporciones.clear();
 
-	// Caso logaritmico con O-grande
+	// Caso cuadratica con O-grande
 	for (int i = 5000; i <= 50000; i += 5000) {
 		
 		generarArrayPC(array2, i);
@@ -130,8 +127,8 @@ int main() {
 		array2.clear();
 	}
 
-	cout << "\n\t >>> CASO CUADRATICO:\n";
-	cout << "\n\n---------------------------------";
+	cout << "\n\t >>> CASO CUADRATICO:";
+	cout << "\n---------------------------------";
 	cout << "\n Array Tamano: " << tamanos[0];
 	cout << "\n Tiempo: " << tiempos[0];
 	cout << "\n---------------------------------";
@@ -141,15 +138,15 @@ int main() {
 		cout << "\n Array Tamano: " << tamanos[i];
 		cout << "\n Tiempo: " << tiempos[i];
 		cout << "\n Diferencia: " << (tiempos[i] - tiempos[i - 1]);
-		cout << "\n Proporcion: " << (tiempos[i] / tiempos[i - 1]);
+		cout << "\n Proporcion: " << (tiempos[i - 1] / tiempos[i]);
 		cout << "\n---------------------------------";
-
-		proporciones.push_back(tiempos[i] / tiempos[i - 1]);
 	}
-	media = 0.0;
-	for (int e : proporciones)
-		media += e;
-	cout << "\nMedia Caso Cuadratico: " << double(media/double(proporciones.size()));
+	cout << "\n >> Exp: La diferencia de tiempos crece de manera cuadratica, la diferencia aumenta mucho en comparacion con la anterior\nDif. Tiempos: ";
+    for (int i = 1; i < tiempos.size(); i++) {
+        cout << tiempos[i] - tiempos[i - 1] << ", ";
+    }
+    cout << endl;
+
 
 	return 0;
 }
