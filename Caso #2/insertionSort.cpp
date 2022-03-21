@@ -61,8 +61,7 @@ void insertionSort(vector<int> &array) {
 	}
 }
 
-int main() {
-
+void startInsertionSort() {
 	unsigned t0;
 	unsigned t1;
 	double time;
@@ -146,6 +145,11 @@ int main() {
         cout << tiempos[i] - tiempos[i - 1] << ", ";
     }
     cout << endl;
+}
+
+int main() {
+
+	
 
 
 	return 0;

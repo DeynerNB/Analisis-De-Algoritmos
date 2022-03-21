@@ -129,8 +129,7 @@ void readFile(string *text) {
 	file.close();
 }
 
-int main() {
-
+void startFreeText() {
 	string text;
 	string pattern = "god";
 	int result = 0;
@@ -172,6 +171,10 @@ int main() {
 
 
 	cout << "\nTotal apears of '" << pattern << "': " << result << endl;
+}
+
+int main() {
+	
 
 
 	return 0;

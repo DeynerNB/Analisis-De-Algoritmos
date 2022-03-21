@@ -19,7 +19,6 @@ void generarVector(vector<int>& a, int n) {
     for (int i = 0; i < n; i++)
         a.push_back(rand() % 200 + 1);
 }
-
 void intercambiar(vector<int>& a, int index1, int index2) {
     int aux = a[index1];
     a[index1] = a[index2];
@@ -49,7 +48,6 @@ int particionar(vector<int>& a, int imin, int imax) {
     intercambiar(a, k, ind_Pivote);
     return k;
 }
-
 void quickSort(vector<int>& a, int imin, int imax) {
 
     if (imax <= imin)
@@ -60,9 +58,7 @@ void quickSort(vector<int>& a, int imin, int imax) {
     quickSort(a, imin, k-1);
     quickSort(a, k+1, imax);
 }
-
-
-int main() {
+void startQuickSort() {
     vector<int> vector1;
     vector<int> tamanos;
     vector<double> tiempos;
@@ -127,24 +123,30 @@ int main() {
     }
 
     cout << "\n\n\t >>> CASO CUADRATICO:";
-	cout << "\n---------------------------------";
-	cout << "\n Array Tamano: " << tamanos[0];
-	cout << "\n Tiempo: " << tiempos[0];
-	cout << "\n---------------------------------";
+    cout << "\n---------------------------------";
+    cout << "\n Array Tamano: " << tamanos[0];
+    cout << "\n Tiempo: " << tiempos[0];
+    cout << "\n---------------------------------";
 
-	for (int i = 1; i < tiempos.size(); i++) {
-		cout << "\n\n---------------------------------";
-		cout << "\n Array Tamano: " << tamanos[i];
-		cout << "\n Tiempo: " << tiempos[i];
-		cout << "\n Diferencia: " << (tiempos[i] - tiempos[i - 1]);
+    for (int i = 1; i < tiempos.size(); i++) {
+        cout << "\n\n---------------------------------";
+        cout << "\n Array Tamano: " << tamanos[i];
+        cout << "\n Tiempo: " << tiempos[i];
+        cout << "\n Diferencia: " << (tiempos[i] - tiempos[i - 1]);
         cout << "\n Proporcion: " << (tiempos[i - 1] / tiempos[i]);
-		cout << "\n---------------------------------";
-	}
+        cout << "\n---------------------------------";
+    }
     cout << "\n >> Exp: La diferencia de tiempos crece de manera exponencial, en este caso, las diferencias son mayores al caso anterior\nDif. Tiempos: ";
     for (int i = 1; i < tiempos.size(); i++) {
         cout << tiempos[i] - tiempos[i - 1] << ", ";
     }
     cout << endl;
+}
+
+
+
+int main() {
+    
 
 
     return 0;
