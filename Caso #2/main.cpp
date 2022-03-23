@@ -64,7 +64,6 @@ int Boyer_Moore_GoodSufx(string text, string pattern, int pointerPattern, int po
     }
 }
 int Boyer_Moore_Text(string text, string pattern) {
-
     if (pattern.length() > text.length())
         return 0;
 
@@ -109,27 +108,32 @@ int Boyer_Moore_Text(string text, string pattern) {
 void readFile(string *text) {
     ifstream file("text.txt");
 
-    cout << "Opening file...\n";
+    cout << "Abriendo archivo...\n";
     if (file.is_open()) {
 
-        cout << "Reading file...\n";
+        cout << "Leyendo archivo...\n";
         while(!file.eof()) {
             getline(file, *text);
         }
 
-        cout << "File action completed!\n";
+        cout << "Archivo leido por completo!\n";
     }
     else {
-        cout << "Failed open file!" << endl;
+        cout << "Fallo al intentar abrir el archivo!!!\n" << endl;
     }
 
     file.close();
 }
 void startFreeText() {
     string text;
-    string pattern = "god";
+    string pattern;
     int result = 0;
     unsigned t0, t1;
+
+    // Get user input pattern
+    cin.ignore();
+    cout << "\nIngrese el patron a buscar: ";
+    getline(cin, pattern);
 
     readFile(&text);
 
@@ -138,18 +142,18 @@ void startFreeText() {
         pattern[i] = tolower(pattern[i]);
 
     // Change file text into lower case
-    cout << "\nFile lower case conversion initializing...\n";
+    cout << "\nConversion del archivo a minusculas iniciado...\n";
     t0 = clock();
     for (int i = 0; i < text.length(); i++)
         text[i] = tolower(text[i]);
     t1 = clock();
-    cout << "File lower case conversion finished\n";
-    cout << "Total time conversion: " << double(t1 - t0)/CLOCKS_PER_SEC << endl;
+    cout << "Conversion del archivo a minusculas finalizado\n";
+    cout << "Tiempo de la conversion: " << double(t1 - t0)/CLOCKS_PER_SEC << endl;
 
     int limitSize = text.length()/2000;
     string subText;
 
-    cout << "\nFile procesing initializing...\n";
+    cout << "\nProcesamiento freetext del archivo iniciado...\n";
     t0 = clock();
     for (int i = 0; i < text.length(); i += limitSize) {
         subText = text.substr(i, limitSize);
@@ -162,11 +166,11 @@ void startFreeText() {
         result += Boyer_Moore_Text(subText, pattern);
     }
     t1 = clock();
-    cout << "File procesing finished\n";
-    cout << "Time Processing: " << double(t1 - t0)/CLOCKS_PER_SEC << endl;
+    cout << "Procesamiento freetext del archivo finalizado!\n";
+    cout << "Tiempo del procesamiento: " << double(t1 - t0)/CLOCKS_PER_SEC << endl;
 
 
-    cout << "\nTotal apears of '" << pattern << "': " << result << endl;
+    cout << "\nTotal de apariciones de '" << pattern << "': " << result << endl;
 }
 // *******************************
 
@@ -461,6 +465,7 @@ int main() {
         cout << "2) Iniciar insertionSort:\n";
         cout << "3) Iniciar freeText:\n";
         cout << "S) Salir:\n";
+        cout << "**IMPORTANTE: El archivo txt para el freeText debe estar en la misma carpeta del main y con nombre 'text.txt'\n";
         cout << "-->: ";
         cin >> option;
 

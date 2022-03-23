@@ -66,6 +66,8 @@ void startQuickSort() {
     unsigned t0;
     unsigned t1;
     double time;
+
+    cout << "\nTiempo de espera aproximado: 15seg caso logaritmico / 45seg caso exponencial\n";
     
     // Caso Logaritmico : Mejor Caso
     for (int i = 5000; i <= 50000; i += 5000) {
@@ -147,7 +149,7 @@ void startQuickSort() {
 
 int main() {
     
-
+    startQuickSort();
 
     return 0;
 }

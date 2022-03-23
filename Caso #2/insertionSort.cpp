@@ -71,6 +71,8 @@ void startInsertionSort() {
 	vector<double> tiempos;
 	vector<int> tamanos;
 
+	cout << "\nTiempo de espera aproximado: 10seg caso lineal / 1min caso exponencial\n";
+
 	// Caso lineal con Omega
 	for (int i = 5000000; i <= 50000000; i += 5000000) {
 		
@@ -149,8 +151,7 @@ void startInsertionSort() {
 
 int main() {
 
-	
-
+	startInsertionSort();
 
 	return 0;
 }
