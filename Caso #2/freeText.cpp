@@ -136,7 +136,6 @@ void startFreeText() {
     unsigned t0, t1;
 
     // Get user input pattern
-    cin.ignore();
     cout << "\nIngrese el patron a buscar: ";
     getline(cin, pattern);
 
